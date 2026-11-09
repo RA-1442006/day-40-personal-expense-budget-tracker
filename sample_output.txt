@@ -1,0 +1,38 @@
+﻿Loaded 5 expenses from expenses.csv
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Exit
+Enter choice (1-3): 
+--- Add New Expense ---
+Enter amount: Categories:
+  1. Food
+  2. Travel
+  3. Rent
+  4. Shopping
+  5. Bills
+  6. Other
+Select a category (number or name): Enter description: Enter date (YYYY-MM-DD) or press Enter for today: Expense added successfully!
+
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Exit
+Enter choice (1-3): 
+--- All Expenses ---
+Date         | Category   | Description               |   Amount
+--------------------------------------------------------------
+2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+2026-11-06   | Travel     | Metro card recharge       | $  20.00
+2026-11-07   | Bills      | Electricity bill          | $  65.00
+2026-11-08   | Shopping   | New running shoes         | $  85.20
+2026-11-09   | Food       | Lunch with colleagues     | $  15.75
+2026-11-09   | Food       | Coffee and snack          | $  12.50
+--------------------------------------------------------------
+Total Expenses: $243.95 (6 records)
+
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Exit
+Enter choice (1-3): Thank you for using Expense Tracker. Goodbye!
