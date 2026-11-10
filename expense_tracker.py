@@ -53,9 +53,16 @@ def save_expenses(filename, expense_list):
         print("Error saving expenses:", e)
 
 
-def get_valid_amount():
+def get_valid_amount(current_value=None):
+    prompt = "Enter amount: "
+    if current_value is not None:
+        prompt = f"Enter amount (press Enter to keep {current_value:.2f}): "
+
     while True:
-        user_input = input("Enter amount: ").strip()
+        user_input = input(prompt).strip()
+        if current_value is not None and user_input == "":
+            return current_value
+
         try:
             amount = float(user_input)
             if amount <= 0:
@@ -66,13 +73,20 @@ def get_valid_amount():
             print("Invalid input. Please enter a valid number for amount.")
 
 
-def get_valid_category():
+def get_valid_category(current_category=None):
     print("Categories:")
     for i in range(len(CATEGORIES)):
         print(f"  {i + 1}. {CATEGORIES[i]}")
 
+    prompt = "Select a category (number or name): "
+    if current_category is not None:
+        prompt = f"Select a category (press Enter to keep '{current_category}'): "
+
     while True:
-        choice = input("Select a category (number or name): ").strip()
+        choice = input(prompt).strip()
+        if current_category is not None and choice == "":
+            return current_category
+
         # Check if user entered a number from the list
         if choice.isdigit():
             index = int(choice) - 1
@@ -90,10 +104,17 @@ def get_valid_category():
         print("Invalid category. Please select a valid category from the list.")
 
 
-def get_valid_date():
+def get_valid_date(current_date=None):
     while True:
-        user_input = input("Enter date (YYYY-MM-DD) or press Enter for today: ").strip()
+        if current_date is not None:
+            prompt = f"Enter date (YYYY-MM-DD) or press Enter to keep {current_date}: "
+        else:
+            prompt = "Enter date (YYYY-MM-DD) or press Enter for today: "
+
+        user_input = input(prompt).strip()
         if user_input == "":
+            if current_date is not None:
+                return current_date
             return datetime.today().strftime("%Y-%m-%d")
 
         try:
@@ -131,16 +152,97 @@ def view_expenses(expense_list):
         return
 
     # Print table header
-    print(f"{'Date':<12} | {'Category':<10} | {'Description':<25} | {'Amount':>8}")
-    print("-" * 62)
+    print(f"{'#':<3} | {'Date':<12} | {'Category':<10} | {'Description':<25} | {'Amount':>8}")
+    print("-" * 68)
 
     total = 0.0
-    for exp in expense_list:
-        print(f"{exp['date']:<12} | {exp['category']:<10} | {exp['description']:<25} | ${exp['amount']:>7.2f}")
+    for i, exp in enumerate(expense_list, start=1):
+        print(f"{i:<3} | {exp['date']:<12} | {exp['category']:<10} | {exp['description']:<25} | ${exp['amount']:>7.2f}")
         total += exp['amount']
 
-    print("-" * 62)
+    print("-" * 68)
     print(f"Total Expenses: ${total:.2f} ({len(expense_list)} records)\n")
+
+
+def edit_expense(expense_list):
+    print("\n--- Edit Expense ---")
+    if not expense_list:
+        print("No expenses to edit.\n")
+        return
+
+    view_expenses(expense_list)
+
+    while True:
+        choice = input("Enter the number of the expense to edit (or 'c' to cancel): ").strip()
+        if choice.lower() == 'c':
+            print("Edit cancelled.\n")
+            return
+
+        try:
+            index = int(choice) - 1
+            if 0 <= index < len(expense_list):
+                break
+            else:
+                print(f"Number out of range. Please enter a number between 1 and {len(expense_list)}.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+    exp = expense_list[index]
+    print(f"\nEditing Expense #{index + 1}:")
+    print("Press Enter on any field to keep the current value.\n")
+
+    new_date = get_valid_date(current_date=exp["date"])
+    new_category = get_valid_category(current_category=exp["category"])
+
+    new_desc = input(f"Enter description (press Enter to keep '{exp['description']}'): ").strip()
+    if new_desc == "":
+        new_desc = exp["description"]
+
+    new_amount = get_valid_amount(current_value=exp["amount"])
+
+    # Update the record
+    exp["date"] = new_date
+    exp["category"] = new_category
+    exp["description"] = new_desc
+    exp["amount"] = new_amount
+
+    save_expenses(CSV_FILE, expense_list)
+    print("Expense updated successfully!\n")
+
+
+def delete_expense(expense_list):
+    print("\n--- Delete Expense ---")
+    if not expense_list:
+        print("No expenses to delete.\n")
+        return
+
+    view_expenses(expense_list)
+
+    while True:
+        choice = input("Enter the number of the expense to delete (or 'c' to cancel): ").strip()
+        if choice.lower() == 'c':
+            print("Deletion cancelled.\n")
+            return
+
+        try:
+            index = int(choice) - 1
+            if 0 <= index < len(expense_list):
+                break
+            else:
+                print(f"Number out of range. Please enter a number between 1 and {len(expense_list)}.")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+    selected = expense_list[index]
+    print(f"Selected: #{index + 1} - {selected['date']} | {selected['category']} | {selected['description']} | ${selected['amount']:.2f}")
+    confirm = input("Are you sure? (y/n): ").strip().lower()
+
+    if confirm == "y" or confirm == "yes":
+        deleted = expense_list.pop(index)
+        save_expenses(CSV_FILE, expense_list)
+        print("Expense deleted successfully!\n")
+    else:
+        print("Expense deletion cancelled.\n")
 
 
 def main():
@@ -151,19 +253,25 @@ def main():
         print("=== Personal Expense Tracker ===")
         print("1. Add expense")
         print("2. View expenses")
-        print("3. Exit")
+        print("3. Edit expense")
+        print("4. Delete expense")
+        print("5. Exit")
 
-        choice = input("Enter choice (1-3): ").strip()
+        choice = input("Enter choice (1-5): ").strip()
 
         if choice == "1":
             add_expense(expense_list)
         elif choice == "2":
             view_expenses(expense_list)
         elif choice == "3":
+            edit_expense(expense_list)
+        elif choice == "4":
+            delete_expense(expense_list)
+        elif choice == "5":
             print("Thank you for using Expense Tracker. Goodbye!")
             break
         else:
-            print("Invalid choice. Please enter 1, 2, or 3.\n")
+            print("Invalid choice. Please enter a number from 1 to 5.\n")
 
 
 if __name__ == "__main__":

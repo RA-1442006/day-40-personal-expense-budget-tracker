@@ -1,0 +1,103 @@
+Loaded 6 expenses from expenses.csv
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Edit expense
+4. Delete expense
+5. Exit
+Enter choice (1-5): 
+--- All Expenses ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+2   | 2026-11-06   | Travel     | Metro card recharge       | $  20.00
+3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
+4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
+5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
+6   | 2026-11-09   | Food       | Coffee and snack          | $  12.50
+--------------------------------------------------------------------
+Total Expenses: $243.95 (6 records)
+
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Edit expense
+4. Delete expense
+5. Exit
+Enter choice (1-5): 
+--- Edit Expense ---
+
+--- All Expenses ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+2   | 2026-11-06   | Travel     | Metro card recharge       | $  20.00
+3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
+4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
+5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
+6   | 2026-11-09   | Food       | Coffee and snack          | $  12.50
+--------------------------------------------------------------------
+Total Expenses: $243.95 (6 records)
+
+Enter the number of the expense to edit (or 'c' to cancel): 
+Editing Expense #2:
+Press Enter on any field to keep the current value.
+
+Enter date (YYYY-MM-DD) or press Enter to keep 2026-11-06: Categories:
+  1. Food
+  2. Travel
+  3. Rent
+  4. Shopping
+  5. Bills
+  6. Other
+Select a category (press Enter to keep 'Travel'): Enter description (press Enter to keep 'Metro card recharge'): Enter amount (press Enter to keep 20.00): Expense updated successfully!
+
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Edit expense
+4. Delete expense
+5. Exit
+Enter choice (1-5): 
+--- Delete Expense ---
+
+--- All Expenses ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+2   | 2026-11-06   | Travel     | Monthly metro pass        | $  25.00
+3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
+4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
+5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
+6   | 2026-11-09   | Food       | Coffee and snack          | $  12.50
+--------------------------------------------------------------------
+Total Expenses: $248.95 (6 records)
+
+Enter the number of the expense to delete (or 'c' to cancel): Selected: #6 - 2026-11-09 | Food | Coffee and snack | $12.50
+Are you sure? (y/n): Expense deleted successfully!
+
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Edit expense
+4. Delete expense
+5. Exit
+Enter choice (1-5): 
+--- All Expenses ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+2   | 2026-11-06   | Travel     | Monthly metro pass        | $  25.00
+3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
+4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
+5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
+--------------------------------------------------------------------
+Total Expenses: $236.45 (5 records)
+
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Edit expense
+4. Delete expense
+5. Exit
+Enter choice (1-5): Thank you for using Expense Tracker. Goodbye!
