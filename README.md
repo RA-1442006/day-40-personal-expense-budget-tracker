@@ -1,16 +1,17 @@
 # Personal Expense & Budget Tracker
 
-Day 2 of 4 - in progress
+Day 3 of 4 - in progress
 
-A simple command-line application to track personal expenses and manage daily spending.
+A simple command-line application to track personal expenses, set monthly budgets, and review spending summaries.
 
 ## Features Done So Far
-- **Add Expense**: Record an expense with amount, category, description, and date.
-- **View Expenses**: Display all recorded expenses in a numbered tabular format with total spending summary.
-- **Edit Expense**: Modify date, category, description, or amount of any existing expense (press Enter to keep old values).
+- **Add Expense**: Record an expense with amount, category, description, and date. Includes automatic monthly budget warning checks (near-limit >80% and over-budget warnings).
+- **View Expenses**: Display all recorded expenses in a numbered tabular format with total spending.
+- **Edit Expense**: Modify date, category, description, or amount of an existing expense (press Enter to keep old values).
 - **Delete Expense**: Remove an expense by number with confirmation prompt (`y/n`).
-- **Data Persistence**: Automatic loading and saving with CSV file (`expenses.csv`).
-- **Input Validation & Safety**: Graceful validation for positive amounts, date formats (YYYY-MM-DD), predefined categories, and error handling for invalid selections.
+- **Monthly Budget**: Set monthly spending limits (`YYYY-MM`) stored in `budget.json`.
+- **Spending Summary**: View daily total for a chosen date, monthly total, category-wise totals, and budget remaining/overage status.
+- **Data Persistence & Validation**: Safe CSV/JSON storage and error handling for invalid inputs or missing files.
 
 ## How to Run
 Ensure you have Python installed, then run:

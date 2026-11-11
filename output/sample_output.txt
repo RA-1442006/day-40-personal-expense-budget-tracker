@@ -1,103 +1,94 @@
-Loaded 6 expenses from expenses.csv
+﻿Loaded 10 expenses from expenses.csv
+Loaded 1 monthly budget(s) from budget.json
 === Personal Expense Tracker ===
 1. Add expense
 2. View expenses
 3. Edit expense
 4. Delete expense
-5. Exit
-Enter choice (1-5): 
---- All Expenses ---
-#   | Date         | Category   | Description               |   Amount
---------------------------------------------------------------------
-1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
-2   | 2026-11-06   | Travel     | Metro card recharge       | $  20.00
-3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
-4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
-5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
-6   | 2026-11-09   | Food       | Coffee and snack          | $  12.50
---------------------------------------------------------------------
-Total Expenses: $243.95 (6 records)
+5. Set monthly budget
+6. Spending summary
+7. Exit
+Enter choice (1-7): 
+--- Set Monthly Budget ---
+Enter month (YYYY-MM) or press Enter for current month: Enter amount: Monthly budget for 2026-11 set to $800.00.
 
 === Personal Expense Tracker ===
 1. Add expense
 2. View expenses
 3. Edit expense
 4. Delete expense
-5. Exit
-Enter choice (1-5): 
---- Edit Expense ---
-
---- All Expenses ---
-#   | Date         | Category   | Description               |   Amount
---------------------------------------------------------------------
-1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
-2   | 2026-11-06   | Travel     | Metro card recharge       | $  20.00
-3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
-4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
-5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
-6   | 2026-11-09   | Food       | Coffee and snack          | $  12.50
---------------------------------------------------------------------
-Total Expenses: $243.95 (6 records)
-
-Enter the number of the expense to edit (or 'c' to cancel): 
-Editing Expense #2:
-Press Enter on any field to keep the current value.
-
-Enter date (YYYY-MM-DD) or press Enter to keep 2026-11-06: Categories:
+5. Set monthly budget
+6. Spending summary
+7. Exit
+Enter choice (1-7): 
+--- Add New Expense ---
+Enter amount: Categories:
   1. Food
   2. Travel
   3. Rent
   4. Shopping
   5. Bills
   6. Other
-Select a category (press Enter to keep 'Travel'): Enter description (press Enter to keep 'Metro card recharge'): Enter amount (press Enter to keep 20.00): Expense updated successfully!
+Select a category (number or name): Enter description: Enter date (YYYY-MM-DD) or press Enter for today: Expense added successfully!
+NOTICE: You have used 96.6% of your budget for 2026-11 ($772.70 / $800.00).
 
 === Personal Expense Tracker ===
 1. Add expense
 2. View expenses
 3. Edit expense
 4. Delete expense
-5. Exit
-Enter choice (1-5): 
---- Delete Expense ---
-
---- All Expenses ---
-#   | Date         | Category   | Description               |   Amount
---------------------------------------------------------------------
-1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
-2   | 2026-11-06   | Travel     | Monthly metro pass        | $  25.00
-3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
-4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
-5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
-6   | 2026-11-09   | Food       | Coffee and snack          | $  12.50
---------------------------------------------------------------------
-Total Expenses: $248.95 (6 records)
-
-Enter the number of the expense to delete (or 'c' to cancel): Selected: #6 - 2026-11-09 | Food | Coffee and snack | $12.50
-Are you sure? (y/n): Expense deleted successfully!
+5. Set monthly budget
+6. Spending summary
+7. Exit
+Enter choice (1-7): 
+--- Add New Expense ---
+Enter amount: Categories:
+  1. Food
+  2. Travel
+  3. Rent
+  4. Shopping
+  5. Bills
+  6. Other
+Select a category (number or name): Enter description: Enter date (YYYY-MM-DD) or press Enter for today: Expense added successfully!
+WARNING: You have exceeded your budget for 2026-11! Spent $817.70 out of $800.00 (over by $17.70).
 
 === Personal Expense Tracker ===
 1. Add expense
 2. View expenses
 3. Edit expense
 4. Delete expense
-5. Exit
-Enter choice (1-5): 
---- All Expenses ---
-#   | Date         | Category   | Description               |   Amount
---------------------------------------------------------------------
-1   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
-2   | 2026-11-06   | Travel     | Monthly metro pass        | $  25.00
-3   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
-4   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
-5   | 2026-11-09   | Food       | Lunch with colleagues     | $  15.75
---------------------------------------------------------------------
-Total Expenses: $236.45 (5 records)
+5. Set monthly budget
+6. Spending summary
+7. Exit
+Enter choice (1-7): 
+--- Spending Summary ---
+1. Daily spending:
+Enter date (YYYY-MM-DD) or press Enter for today: Total spent on 2026-11-11: $85.00
+
+2. Monthly spending:
+Enter month (YYYY-MM) or press Enter for current month: 
+--- Summary for 2026-11 ---
+Total spent in 2026-11: $817.70
+
+Category-wise totals:
+  Rent        : $  500.00
+  Food        : $   85.50
+  Travel      : $   25.00
+  Bills       : $   65.00
+  Shopping    : $  130.20
+  Other       : $   12.00
+
+Budget overview:
+  Monthly Budget : $800.00
+  Amount Spent   : $817.70
+  Over Budget by : $17.70
 
 === Personal Expense Tracker ===
 1. Add expense
 2. View expenses
 3. Edit expense
 4. Delete expense
-5. Exit
-Enter choice (1-5): Thank you for using Expense Tracker. Goodbye!
+5. Set monthly budget
+6. Spending summary
+7. Exit
+Enter choice (1-7): Thank you for using Expense Tracker. Goodbye!

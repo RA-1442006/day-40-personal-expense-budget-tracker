@@ -1,10 +1,12 @@
 import csv
+import json
 import os
 from datetime import datetime
 
 # Fixed list of categories
 CATEGORIES = ["Food", "Travel", "Rent", "Shopping", "Bills", "Other"]
 CSV_FILE = "expenses.csv"
+BUDGET_FILE = "budget.json"
 
 
 def load_expenses(filename):
@@ -51,6 +53,37 @@ def save_expenses(filename, expense_list):
                 })
     except Exception as e:
         print("Error saving expenses:", e)
+
+
+def load_budgets(filename):
+    budgets = {}
+    if not os.path.exists(filename):
+        return budgets
+
+    try:
+        with open(filename, mode="r", encoding="utf-8") as file:
+            content = file.read().strip()
+            if not content:
+                return budgets
+            data = json.loads(content)
+            if isinstance(data, dict):
+                for month, amount in data.items():
+                    try:
+                        budgets[month] = float(amount)
+                    except (ValueError, TypeError):
+                        continue
+    except Exception as e:
+        print("Error reading budget file:", e)
+
+    return budgets
+
+
+def save_budgets(filename, budgets):
+    try:
+        with open(filename, mode="w", encoding="utf-8") as file:
+            json.dump(budgets, file, indent=4)
+    except Exception as e:
+        print("Error saving budgets:", e)
 
 
 def get_valid_amount(current_value=None):
@@ -124,7 +157,20 @@ def get_valid_date(current_date=None):
             print("Invalid date format. Please use YYYY-MM-DD.")
 
 
-def add_expense(expense_list):
+def get_valid_month():
+    while True:
+        user_input = input("Enter month (YYYY-MM) or press Enter for current month: ").strip()
+        if user_input == "":
+            return datetime.today().strftime("%Y-%m")
+
+        try:
+            valid_month = datetime.strptime(user_input, "%Y-%m")
+            return valid_month.strftime("%Y-%m")
+        except ValueError:
+            print("Invalid month format. Please use YYYY-MM.")
+
+
+def add_expense(expense_list, budgets):
     print("\n--- Add New Expense ---")
     amount = get_valid_amount()
     category = get_valid_category()
@@ -142,7 +188,12 @@ def add_expense(expense_list):
 
     expense_list.append(expense)
     save_expenses(CSV_FILE, expense_list)
-    print("Expense added successfully!\n")
+    print("Expense added successfully!")
+
+    # Check monthly budget warning after adding an expense
+    month = date[:7]
+    check_budget_warning(expense_list, budgets, month)
+    print()
 
 
 def view_expenses(expense_list):
@@ -245,9 +296,107 @@ def delete_expense(expense_list):
         print("Expense deletion cancelled.\n")
 
 
+def daily_total(expense_list, target_date):
+    total = 0.0
+    for exp in expense_list:
+        if exp["date"] == target_date:
+            total += exp["amount"]
+    return total
+
+
+def monthly_total(expense_list, target_month):
+    total = 0.0
+    for exp in expense_list:
+        if exp["date"].startswith(target_month):
+            total += exp["amount"]
+    return total
+
+
+def category_totals(expense_list, target_month):
+    totals = {}
+    for exp in expense_list:
+        if exp["date"].startswith(target_month):
+            cat = exp["category"]
+            if cat in totals:
+                totals[cat] += exp["amount"]
+            else:
+                totals[cat] = exp["amount"]
+    return totals
+
+
+def check_budget_warning(expense_list, budgets, month):
+    if month not in budgets:
+        return
+
+    budget = budgets[month]
+    spent = monthly_total(expense_list, month)
+
+    if spent > budget:
+        over = spent - budget
+        print(f"WARNING: You have exceeded your budget for {month}! Spent ${spent:.2f} out of ${budget:.2f} (over by ${over:.2f}).")
+    elif spent > 0.8 * budget:
+        percent = (spent / budget) * 100
+        print(f"NOTICE: You have used {percent:.1f}% of your budget for {month} (${spent:.2f} / ${budget:.2f}).")
+
+
+def set_budget(budgets):
+    print("\n--- Set Monthly Budget ---")
+    month = get_valid_month()
+    if month in budgets:
+        print(f"Current budget for {month} is ${budgets[month]:.2f}.")
+
+    amount = get_valid_amount()
+    budgets[month] = amount
+    save_budgets(BUDGET_FILE, budgets)
+    print(f"Monthly budget for {month} set to ${amount:.2f}.\n")
+
+
+def show_summary(expense_list, budgets):
+    print("\n--- Spending Summary ---")
+    if not expense_list:
+        print("No expenses recorded yet.\n")
+        return
+
+    print("1. Daily spending:")
+    target_date = get_valid_date()
+    d_total = daily_total(expense_list, target_date)
+    print(f"Total spent on {target_date}: ${d_total:.2f}\n")
+
+    print("2. Monthly spending:")
+    target_month = get_valid_month()
+    m_total = monthly_total(expense_list, target_month)
+    print(f"\n--- Summary for {target_month} ---")
+    print(f"Total spent in {target_month}: ${m_total:.2f}")
+
+    cat_totals = category_totals(expense_list, target_month)
+    if cat_totals:
+        print("\nCategory-wise totals:")
+        for cat in cat_totals:
+            print(f"  {cat:<12}: ${cat_totals[cat]:>8.2f}")
+    else:
+        print("No expenses found for this month.")
+
+    if target_month in budgets:
+        budget = budgets[target_month]
+        remaining = budget - m_total
+        print("\nBudget overview:")
+        print(f"  Monthly Budget : ${budget:.2f}")
+        print(f"  Amount Spent   : ${m_total:.2f}")
+        if remaining >= 0:
+            print(f"  Remaining      : ${remaining:.2f}")
+        else:
+            print(f"  Over Budget by : ${abs(remaining):.2f}")
+    else:
+        print(f"\nNo budget set for {target_month}.")
+
+    print()
+
+
 def main():
     expense_list = load_expenses(CSV_FILE)
+    budgets = load_budgets(BUDGET_FILE)
     print("Loaded", len(expense_list), "expenses from", CSV_FILE)
+    print("Loaded", len(budgets), "monthly budget(s) from", BUDGET_FILE)
 
     while True:
         print("=== Personal Expense Tracker ===")
@@ -255,12 +404,14 @@ def main():
         print("2. View expenses")
         print("3. Edit expense")
         print("4. Delete expense")
-        print("5. Exit")
+        print("5. Set monthly budget")
+        print("6. Spending summary")
+        print("7. Exit")
 
-        choice = input("Enter choice (1-5): ").strip()
+        choice = input("Enter choice (1-7): ").strip()
 
         if choice == "1":
-            add_expense(expense_list)
+            add_expense(expense_list, budgets)
         elif choice == "2":
             view_expenses(expense_list)
         elif choice == "3":
@@ -268,10 +419,14 @@ def main():
         elif choice == "4":
             delete_expense(expense_list)
         elif choice == "5":
+            set_budget(budgets)
+        elif choice == "6":
+            show_summary(expense_list, budgets)
+        elif choice == "7":
             print("Thank you for using Expense Tracker. Goodbye!")
             break
         else:
-            print("Invalid choice. Please enter a number from 1 to 5.\n")
+            print("Invalid choice. Please enter a number from 1 to 7.\n")
 
 
 if __name__ == "__main__":
