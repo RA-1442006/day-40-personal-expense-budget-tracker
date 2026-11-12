@@ -289,7 +289,7 @@ def delete_expense(expense_list):
     confirm = input("Are you sure? (y/n): ").strip().lower()
 
     if confirm == "y" or confirm == "yes":
-        deleted = expense_list.pop(index)
+        expense_list.pop(index)
         save_expenses(CSV_FILE, expense_list)
         print("Expense deleted successfully!\n")
     else:
@@ -392,6 +392,127 @@ def show_summary(expense_list, budgets):
     print()
 
 
+def show_results(matches, title="Matching Expenses"):
+    print(f"\n--- {title} ---")
+    if not matches:
+        print("No matching expenses found.\n")
+        return
+
+    print(f"{'#':<3} | {'Date':<12} | {'Category':<10} | {'Description':<25} | {'Amount':>8}")
+    print("-" * 68)
+
+    total = 0.0
+    for i, exp in enumerate(matches, start=1):
+        print(f"{i:<3} | {exp['date']:<12} | {exp['category']:<10} | {exp['description']:<25} | ${exp['amount']:>7.2f}")
+        total += exp["amount"]
+
+    print("-" * 68)
+    print(f"Matches found: {len(matches)} | Total Amount: ${total:.2f}\n")
+
+
+def search_expenses(expense_list):
+    keyword = input("Enter keyword to search (description or category): ").strip().lower()
+    if keyword == "":
+        print("Search keyword cannot be empty.\n")
+        return
+
+    matches = []
+    for exp in expense_list:
+        if keyword in exp["description"].lower() or keyword in exp["category"].lower():
+            matches.append(exp)
+
+    show_results(matches, f"Search Results for '{keyword}'")
+
+
+def filter_by_category(expense_list):
+    category = get_valid_category()
+    matches = []
+    for exp in expense_list:
+        if exp["category"].lower() == category.lower():
+            matches.append(exp)
+
+    show_results(matches, f"Category: {category}")
+
+
+def filter_by_month(expense_list):
+    month = get_valid_month()
+    matches = []
+    for exp in expense_list:
+        if exp["date"].startswith(month):
+            matches.append(exp)
+
+    show_results(matches, f"Month: {month}")
+
+
+def filter_by_date_range(expense_list):
+    print("Enter start date:")
+    start_date = get_valid_date()
+    print("Enter end date:")
+    end_date = get_valid_date()
+
+    if start_date > end_date:
+        print("Start date cannot be after end date.\n")
+        return
+
+    matches = []
+    for exp in expense_list:
+        if start_date <= exp["date"] <= end_date:
+            matches.append(exp)
+
+    show_results(matches, f"Date Range: {start_date} to {end_date}")
+
+
+def filter_by_amount(expense_list):
+    print("Enter minimum amount:")
+    min_amount = get_valid_amount()
+    print("Enter maximum amount:")
+    max_amount = get_valid_amount()
+
+    if min_amount > max_amount:
+        print("Minimum amount cannot be greater than maximum amount.\n")
+        return
+
+    matches = []
+    for exp in expense_list:
+        if min_amount <= exp["amount"] <= max_amount:
+            matches.append(exp)
+
+    show_results(matches, f"Amount Range: ${min_amount:.2f} to ${max_amount:.2f}")
+
+
+def search_and_filter(expense_list):
+    if not expense_list:
+        print("\nNo expenses recorded yet.\n")
+        return
+
+    while True:
+        print("\n--- Search & Filter Expenses ---")
+        print("1. Search by keyword")
+        print("2. Filter by category")
+        print("3. Filter by month (YYYY-MM)")
+        print("4. Filter by date range")
+        print("5. Filter by amount range")
+        print("6. Back to main menu")
+
+        choice = input("Enter choice (1-6): ").strip()
+
+        if choice == "1":
+            search_expenses(expense_list)
+        elif choice == "2":
+            filter_by_category(expense_list)
+        elif choice == "3":
+            filter_by_month(expense_list)
+        elif choice == "4":
+            filter_by_date_range(expense_list)
+        elif choice == "5":
+            filter_by_amount(expense_list)
+        elif choice == "6":
+            print()
+            break
+        else:
+            print("Invalid choice. Please enter a number from 1 to 6.")
+
+
 def main():
     expense_list = load_expenses(CSV_FILE)
     budgets = load_budgets(BUDGET_FILE)
@@ -406,9 +527,10 @@ def main():
         print("4. Delete expense")
         print("5. Set monthly budget")
         print("6. Spending summary")
-        print("7. Exit")
+        print("7. Search and filter expenses")
+        print("8. Exit")
 
-        choice = input("Enter choice (1-7): ").strip()
+        choice = input("Enter choice (1-8): ").strip()
 
         if choice == "1":
             add_expense(expense_list, budgets)
@@ -423,10 +545,12 @@ def main():
         elif choice == "6":
             show_summary(expense_list, budgets)
         elif choice == "7":
+            search_and_filter(expense_list)
+        elif choice == "8":
             print("Thank you for using Expense Tracker. Goodbye!")
             break
         else:
-            print("Invalid choice. Please enter a number from 1 to 7.\n")
+            print("Invalid choice. Please enter a number from 1 to 8.\n")
 
 
 if __name__ == "__main__":

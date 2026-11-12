@@ -1,0 +1,141 @@
+﻿Loaded 14 expenses from expenses.csv
+Loaded 3 monthly budget(s) from budget.json
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Edit expense
+4. Delete expense
+5. Set monthly budget
+6. Spending summary
+7. Search and filter expenses
+8. Exit
+Enter choice (1-8): 
+--- Search & Filter Expenses ---
+1. Search by keyword
+2. Filter by category
+3. Filter by month (YYYY-MM)
+4. Filter by date range
+5. Filter by amount range
+6. Back to main menu
+Enter choice (1-6): Enter keyword to search (description or category): 
+--- Search Results for 'grocer' ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-09-10   | Food       | Weekly groceries          | $  54.00
+2   | 2026-10-12   | Food       | Grocery shopping          | $  62.50
+3   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+--------------------------------------------------------------------
+Matches found: 3 | Total Amount: $162.00
+
+
+--- Search & Filter Expenses ---
+1. Search by keyword
+2. Filter by category
+3. Filter by month (YYYY-MM)
+4. Filter by date range
+5. Filter by amount range
+6. Back to main menu
+Enter choice (1-6): Categories:
+  1. Food
+  2. Travel
+  3. Rent
+  4. Shopping
+  5. Bills
+  6. Other
+Select a category (number or name): 
+--- Category: Food ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-09-10   | Food       | Weekly groceries          | $  54.00
+2   | 2026-10-12   | Food       | Grocery shopping          | $  62.50
+3   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+4   | 2026-11-11   | Food       | Dinner with friends       | $  40.00
+--------------------------------------------------------------------
+Matches found: 4 | Total Amount: $202.00
+
+
+--- Search & Filter Expenses ---
+1. Search by keyword
+2. Filter by category
+3. Filter by month (YYYY-MM)
+4. Filter by date range
+5. Filter by amount range
+6. Back to main menu
+Enter choice (1-6): Enter month (YYYY-MM) or press Enter for current month: 
+--- Month: 2026-10 ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-10-05   | Rent       | October apartment rent    | $ 500.00
+2   | 2026-10-12   | Food       | Grocery shopping          | $  62.50
+3   | 2026-10-18   | Bills      | Internet and phone bill   | $  45.00
+4   | 2026-10-25   | Travel     | Train ticket to hometown  | $  38.00
+--------------------------------------------------------------------
+Matches found: 4 | Total Amount: $645.50
+
+
+--- Search & Filter Expenses ---
+1. Search by keyword
+2. Filter by category
+3. Filter by month (YYYY-MM)
+4. Filter by date range
+5. Filter by amount range
+6. Back to main menu
+Enter choice (1-6): Enter start date:
+Enter date (YYYY-MM-DD) or press Enter for today: Enter end date:
+Enter date (YYYY-MM-DD) or press Enter for today: 
+--- Date Range: 2026-11-01 to 2026-11-08 ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-11-01   | Rent       | November apartment rent   | $ 500.00
+2   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+3   | 2026-11-06   | Travel     | Monthly metro pass        | $  25.00
+4   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
+5   | 2026-11-08   | Shopping   | New running shoes         | $  85.20
+--------------------------------------------------------------------
+Matches found: 5 | Total Amount: $720.70
+
+
+--- Search & Filter Expenses ---
+1. Search by keyword
+2. Filter by category
+3. Filter by month (YYYY-MM)
+4. Filter by date range
+5. Filter by amount range
+6. Back to main menu
+Enter choice (1-6): Enter minimum amount:
+Enter amount: Enter maximum amount:
+Enter amount: 
+--- Amount Range: $30.00 to $70.00 ---
+#   | Date         | Category   | Description               |   Amount
+--------------------------------------------------------------------
+1   | 2026-09-10   | Food       | Weekly groceries          | $  54.00
+2   | 2026-09-22   | Travel     | Bus pass renewal          | $  30.00
+3   | 2026-10-12   | Food       | Grocery shopping          | $  62.50
+4   | 2026-10-18   | Bills      | Internet and phone bill   | $  45.00
+5   | 2026-10-25   | Travel     | Train ticket to hometown  | $  38.00
+6   | 2026-11-05   | Food       | Groceries at supermarket  | $  45.50
+7   | 2026-11-07   | Bills      | Electricity bill          | $  65.00
+8   | 2026-11-11   | Food       | Dinner with friends       | $  40.00
+9   | 2026-11-11   | Shopping   | Winter jacket             | $  45.00
+--------------------------------------------------------------------
+Matches found: 9 | Total Amount: $425.00
+
+
+--- Search & Filter Expenses ---
+1. Search by keyword
+2. Filter by category
+3. Filter by month (YYYY-MM)
+4. Filter by date range
+5. Filter by amount range
+6. Back to main menu
+Enter choice (1-6): 
+=== Personal Expense Tracker ===
+1. Add expense
+2. View expenses
+3. Edit expense
+4. Delete expense
+5. Set monthly budget
+6. Spending summary
+7. Search and filter expenses
+8. Exit
+Enter choice (1-8): Thank you for using Expense Tracker. Goodbye!
